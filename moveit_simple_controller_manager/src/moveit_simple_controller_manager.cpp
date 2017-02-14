@@ -39,6 +39,7 @@
 #include <moveit_simple_controller_manager/action_based_controller_handle.h>
 #include <moveit_simple_controller_manager/gripper_controller_handle.h>
 #include <moveit_simple_controller_manager/follow_joint_trajectory_controller_handle.h>
+#include <moveit_simple_controller_manager/multi_dof_follow_joint_trajectory_handle.h>
 #include <pluginlib/class_list_macros.h>
 #include <algorithm>
 #include <map>
@@ -145,6 +146,15 @@ public:
             controllers_[name] = new_handle;
           }
         }
+        else if(type == "MultiDofFollowJointTrajectory")
+		{
+		  new_handle.reset(new MultiDofFollowJointTrajectoryControllerHandle(name, action_ns));
+		  if (static_cast<MultiDofFollowJointTrajectoryControllerHandle*>(new_handle.get())->isConnected())
+		  {
+			ROS_INFO_STREAM("MoveitSimpleControllerManager: Added MultiDofFollowJointTrajectory controller for " << name );
+			controllers_[name] = new_handle;
+		  }
+		}
         else
         {
           ROS_ERROR("Unknown controller type: '%s'", type.c_str());
