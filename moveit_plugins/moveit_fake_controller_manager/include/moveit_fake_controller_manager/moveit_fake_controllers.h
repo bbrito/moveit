@@ -126,7 +126,7 @@ private:
   ros::WallRate rate_;
 };
 
-class WholeBodyController : public ThreadedController
+/*class WholeBodyController : public ThreadedController
 {
 public:
 	WholeBodyController(const std::string& name, const std::vector<std::string>& joints, const ros::Publisher& arm_pub, const ros::Publisher& base_pub);
@@ -137,7 +137,7 @@ protected:
 
 private:
   ros::WallRate rate_;
-};
+};*/
 }
 
 #endif

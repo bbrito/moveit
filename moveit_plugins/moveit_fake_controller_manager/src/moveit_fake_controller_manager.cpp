@@ -111,11 +111,11 @@ public:
           controllers_[name].reset(new ViaPointController(name, joints, pub_));
         else if (type == "interpolate")
           controllers_[name].reset(new InterpolatingController(name, joints, pub_));
-        else if (type == "WholeBodyTrajectory"){
+        /*else if (type == "WholeBodyTrajectory"){
           arm_pub_ = node_handle_.advertise<std_msgs::Float64MultiArray>("/arm/joint_group_velocity_controller/command", 100, false);
           base_pub_ = node_handle_.advertise<geometry_msgs::Twist>("/base/command", 100, false);
           controllers_[name].reset(new WholeBodyController(name, joints, arm_pub_,base_pub_));
-        }
+        }*/
         else
           ROS_ERROR_STREAM("Unknown fake controller type: " << type);
       }

@@ -8,7 +8,7 @@ if(NOT CMAKE_CONFIGURATION_TYPES AND NOT CMAKE_BUILD_TYPE)
 endif()
 
 find_package(Boost REQUIRED thread)
-include_directories(${Boost_INCLUDE_DIRS})
+include_directories(include ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIRS})
 
 find_package(catkin COMPONENTS
@@ -26,6 +26,7 @@ link_directories(${catkin_LIBRARY_DIRS})
 catkin_package(
   LIBRARIES
   INCLUDE_DIRS
+  	include
   DEPENDS
     moveit_core
     moveit_ros_planning
