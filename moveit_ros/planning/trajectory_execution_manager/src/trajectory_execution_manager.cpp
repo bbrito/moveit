@@ -1479,6 +1479,7 @@ bool TrajectoryExecutionManager::waitForRobotToStop(const TrajectoryExecutionCon
 
   // assume robot stopped when 3 consecutive checks yield the same robot state
   unsigned int no_motion_count = 0;  // count iterations with no motion
+  ROS_WARN_STREAM_NAMED("traj_execution", "Waiting " << wait_time << " s to get the current joint state");
   while (time_remaining > 0. && no_motion_count < 3)
   {
     if (!csm_->waitForCurrentState(ros::Time::now(), time_remaining) || !(cur_state = csm_->getCurrentState()))
@@ -1486,6 +1487,7 @@ bool TrajectoryExecutionManager::waitForRobotToStop(const TrajectoryExecutionCon
       ROS_WARN_NAMED("traj_execution", "Failed to receive current joint state");
       return false;
     }
+    ROS_WARN_STREAM_NAMED("traj_execution", "Time of the current state " << csm_->getCurrentStateTime().toSec() << " s");
     cur_state->enforceBounds();
     time_remaining = wait_time - (ros::WallTime::now() - start).toSec();  // remaining wait_time
 

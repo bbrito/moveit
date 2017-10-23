@@ -902,6 +902,8 @@ bool planning_scene_monitor::PlanningSceneMonitor::waitForCurrentRobotState(cons
   bool success = last_robot_motion_time_ >= t;
   // suppress warning if we received an update at all
   if (!success && prev_robot_motion_time != last_robot_motion_time_)
+	ROS_WARN_STREAM_NAMED(LOGNAME, "The last motion was " << last_robot_motion_time_.toSec() << " s");
+    ROS_WARN_STREAM_NAMED(LOGNAME, "The time now is " << t.toSec() << " s");
     ROS_WARN_NAMED(LOGNAME, "Maybe failed to update robot state, time diff: %.3fs",
                    (t - last_robot_motion_time_).toSec());
 
