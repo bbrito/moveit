@@ -330,6 +330,7 @@ void MotionPlanningFrame::changePlanningGroupHelper()
           planning_display_->setQueryGoalState(ps->getCurrentState());
         }
       }
+      ROS_INFO("DOne Constructing new MoveGroup connection for group");
     }
   }
 }

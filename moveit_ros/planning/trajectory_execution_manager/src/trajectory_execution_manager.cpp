@@ -942,10 +942,10 @@ bool TrajectoryExecutionManager::validate(const TrajectoryExecutionContext& cont
   ROS_DEBUG_NAMED("traj_execution", "Validating trajectory with allowed_start_tolerance %g", allowed_start_tolerance_);
 
   robot_state::RobotStatePtr current_state;
-  if (!csm_->waitForCurrentState(ros::Time::now()) || !(current_state = csm_->getCurrentState()))
+  if (!csm_->waitForCurrentState(ros::Time(10.0)) || !(current_state = csm_->getCurrentState()))
   {
     ROS_WARN_NAMED("traj_execution", "Failed to validate trajectory: couldn't receive full current joint state within "
-                                     "1s");
+                                     "10s");
     return false;
   }
 
@@ -975,7 +975,7 @@ bool TrajectoryExecutionManager::validate(const TrajectoryExecutionContext& cont
       // normalize positions and compare
       jm->enforcePositionBounds(&cur_position);
       jm->enforcePositionBounds(&traj_position);
-      if (fabs(cur_position - traj_position) > 5.0*allowed_start_tolerance_)
+      if (fabs(cur_position - traj_position) > 5.0 * allowed_start_tolerance_)
       {
         ROS_ERROR_NAMED("traj_execution",
                         "\nInvalid Trajectory: start point deviates from current robot state more than %g"
